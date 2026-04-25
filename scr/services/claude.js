@@ -1,31 +1,21 @@
 const axios = require("axios");
 
 async function askClaude(messages) {
-    try {
-        const res = await axios.post(
-            "https://api.anthropic.com/v1/messages",
-            {
-                model: "claude-3-sonnet-20240229",
-                max_tokens: 1000,
-                messages: messages.map(m => ({
-                    role: m.role,
-                    content: m.content
-                }))
-            },
-            {
-                headers: {
-                    "x-api-key": process.env.CLAUDE_API_KEY,
-                    "anthropic-version": "2023-06-01",
-                    "content-type": "application/json"
-                }
-            }
-        );
-
-        return res.data.content[0].text;
-    } catch (err) {
-        console.error("Claude API Error:", err.response?.data || err.message);
-        throw new Error("Claude API failed");
+  const res = await axios.post(
+    "https://api.agentrouter.ai/v1/chat/completions", // ✅ endpoint đúng
+    {
+      model: "claude-haiku-4-5-20251001", // hoặc opus
+      messages: messages
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.CLAUDE_API_KEY}`,
+        "Content-Type": "application/json"
+      }
     }
+  );
+
+  return res.data.choices[0].message.content;
 }
 
 module.exports = { askClaude };
