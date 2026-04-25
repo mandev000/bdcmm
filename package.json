@@ -2,9 +2,9 @@
     "name": "discord-claude-bot",
     "version": "1.0.0",
     "description": "Discord AI bot using Claude",
-    "main": "src/index.js",
+    "main": "scr/index.js",
     "scripts": {
-        "start": "node src/index.js",
+        "start": "node scr/index.js",
         "dev": "node scr/index.js"
     },
     "dependencies": {
